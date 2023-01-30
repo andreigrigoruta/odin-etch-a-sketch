@@ -1,0 +1,46 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: lightgray;
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  padding: 30px 0;
+}
+
+.title {
+  font-size: 75px;
+  text-align: center;
+}
+
+#grid-container {
+  display: grid;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-element {
+  user-select: none;
+}
+
+.change-color {
+  background-color: red;
+}
