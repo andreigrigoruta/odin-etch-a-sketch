@@ -11,18 +11,39 @@ const setSizeBtn = document.getElementById("set-size-btn");
 const clearBtn = document.getElementById("clear-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
 const colorBtn = document.getElementById("color-btn");
+const grayBtn = document.getElementById("gray-btn");
 
 setSizeBtn.addEventListener("click", getSizePrompt);
 clearBtn.addEventListener("click", reloadGrid);
 rainbowBtn.addEventListener("click", () => setCurrentMode("rainbow"));
 colorBtn.addEventListener("click", () => setCurrentMode("color"));
+grayBtn.addEventListener("click", () => setCurrentMode("gray"));
 
 function changeColor(e) {
   console.log(currentMode);
-  if (currentMode === "color") {
-    e.target.style.backgroundColor = currentColor;
-  } else {
-    e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+  switch (currentMode) {
+    case "color":
+      e.target.style.backgroundColor = currentColor;
+      break;
+    case "rainbow":
+      e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      break;
+    case "gray":
+      if (e.target.style.backgroundColor.match(/rgba/)) {
+        let currentOpacity = Number(
+          e.target.style.backgroundColor.slice(-4, -1)
+        );
+        if (currentOpacity <= 0.9) {
+          e.target.style.backgroundColor = `rgba(0, 0, 0, ${
+            currentOpacity + 0.1
+          })`;
+        }
+      } else if (e.target.style.backgroundColor == "rgb(0, 0, 0)") {
+        return;
+      } else {
+        e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+      }
+      break;
   }
 }
 
