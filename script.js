@@ -20,7 +20,6 @@ colorBtn.addEventListener("click", () => setCurrentMode("color"));
 grayBtn.addEventListener("click", () => setCurrentMode("gray"));
 
 function changeColor(e) {
-  console.log(currentMode);
   switch (currentMode) {
     case "color":
       e.target.style.backgroundColor = currentColor;
@@ -29,6 +28,9 @@ function changeColor(e) {
       e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
       break;
     case "gray":
+      if (e.target.style.backgroundColor === "rgb(0, 0, 0)") {
+        return;
+      }
       if (e.target.style.backgroundColor.match(/rgba/)) {
         let currentOpacity = Number(
           e.target.style.backgroundColor.slice(-4, -1)
@@ -38,8 +40,6 @@ function changeColor(e) {
             currentOpacity + 0.1
           })`;
         }
-      } else if (e.target.style.backgroundColor == "rgb(0, 0, 0)") {
-        return;
       } else {
         e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
       }
