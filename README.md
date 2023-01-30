@@ -1,1 +1,1 @@
-Odin Project Etch-A-Sketch Project
+Odin Project Etch-A-Sketch
