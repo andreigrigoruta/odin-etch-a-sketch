@@ -18,10 +18,11 @@ clearBtn.addEventListener("click", reloadGrid);
 rainbowBtn.addEventListener("click", () => setCurrentMode("rainbow"));
 colorBtn.addEventListener("click", () => setCurrentMode("color"));
 grayBtn.addEventListener("click", () => setCurrentMode("gray"));
+grid.addEventListener("mouseover", changeColor);
 
 function changeColor(e) {
   switch (currentMode) {
-    case "color":
+    default:
       e.target.style.backgroundColor = currentColor;
       break;
     case "rainbow":
@@ -32,19 +33,22 @@ function changeColor(e) {
         return;
       }
       if (e.target.style.backgroundColor.match(/rgba/)) {
-        let currentOpacity = Number(
-          e.target.style.backgroundColor.slice(-4, -1)
+        e.target.style.backgroundColor = getGray(
+          e.target.style.backgroundColor
         );
-        if (currentOpacity <= 0.9) {
-          e.target.style.backgroundColor = `rgba(0, 0, 0, ${
-            currentOpacity + 0.1
-          })`;
-        }
       } else {
         e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
       }
       break;
   }
+}
+
+function getGray(color) {
+  let currentOpacity = Number(color.slice(-4, -1));
+  if (currentOpacity <= 0.9) {
+    color = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
+  }
+  return color;
 }
 
 function setCurrentMode(newMode) {
@@ -80,7 +84,6 @@ function setupGrid(size) {
   for (let i = 0; i < size * size; i++) {
     const gridElement = document.createElement("div");
     gridElement.classList.add("grid-element");
-    gridElement.addEventListener("mouseover", changeColor);
     grid.appendChild(gridElement);
   }
 }
